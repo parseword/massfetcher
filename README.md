@@ -2,12 +2,12 @@
 
 MassFetcher is a multithreaded HTTP GET request utility. Give it a path to 
 request, and a giant list of domains to request it from. Retrieved files are 
-saved to disk (subject to various config parameters). You may find MassFetcher 
+saved to disk (subject to configuration parameters). You may find MassFetcher 
 useful if you want to perform various types of web analysis:
 
 * Gauge the average size of web index pages
 
-* Determine the popularity of various code libraries, meta tags, etc. 
+* Determine the popularity of specific code libraries, meta tags, etc. 
 
 * Inspect lots of `ads.txt` files looking for new ad networks to block
 
