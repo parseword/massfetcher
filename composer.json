@@ -1,0 +1,29 @@
+{
+    "name": "parseword/massfetcher",
+    "description": "A multithreaded utility to retrieve a page or file from numerous websites",
+    "keywords": ["php","multithreaded","spider"],
+    "homepage": "https://github.com/parseword/massfetcher/",
+    "readme": "https://github.com/parseword/massfetcher/blob/master/README.md",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Shaun Cummiskey",
+            "email": "shaun@shaunc.com",
+            "homepage": "https://shaunc.com/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "docs": "https://github.com/parseword/massfetcher/"
+    },
+    "require": {
+        "php": ">=7.1",
+        "parseword/logger": ">=1.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "parseword\\MassFetcher\\": "src"
+        }
+    }
+}
+

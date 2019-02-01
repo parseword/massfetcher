@@ -1,0 +1,107 @@
+<?php
+
+namespace parseword\MassFetcher;
+
+use parseword\logger\Logger;
+
+/*
+ * This is the MassFetcher configuration file.
+ *
+ * Set the desired options for your MassFetcher operations below by tweaking
+ * the values passed into the setter methods.
+ *
+ * *****************************************************************************
+ *
+ * First, set the logger's output file and severity filter. Options are:
+ *
+ * Logger::SEVERITY_NONE  writes no log file
+ * Logger::SEVERITY_ERROR writes only error messages
+ * Logger::SEVERITY_INFO  writes errors and informative messages
+ * Logger::DEBUG          writes errors, info, and verbose debugging output
+ */
+Logger::setFilename('output.log');
+Logger::setSeverityFilter(Logger::SEVERITY_DEBUG);
+
+/*
+ * Create the MassFetcher object. Don't change this.
+ */
+$mf = new MassFetcher();
+
+/*
+ * The file you want to fetch from each domain. This must begin with '/', for
+ * example, '/robots.txt' or '/.well-known/keybase.txt'. To fetch the index
+ * page, set this to '/' and make sure followRedirects is set to true below.
+ */
+$mf->setRequestPath('/ads.txt');
+
+/*
+ * Set the location of the input file. It should contain one hostname per line.
+ * Lines beginning with # will be ignored. The requestPath, set above, will be
+ * fetched from each host.
+ */
+$mf->setInputFile('domains.txt');
+
+/*
+ * The directory to use for output. MassFetcher will create a multi-level
+ * alphanumeric tree structure here, e.g. twitter.com -> ./data/t/w/twitter.com/
+ */
+$mf->setOutputDirectory('./data');
+
+/*
+ * Maximum number of simultaneous threads. You should experiment to see what
+ * value saturates your connection and/or CPUs to an acceptable level.
+ */
+$mf->setMaxThreads(48);
+
+/*
+ * Whether to follow Location header redirects. To minimize junk data, if you
+ * enable this, you should also enable strictFilenameMatching below.
+ */
+$mf->setFollowRedirects(true);
+
+/*
+ * Whether to use strict filename matching when following redirects. If you
+ * request '/foo.txt' and the server redirects to '/.well-known/foo.txt',
+ * or even if it redirects to a path ending in '/foo.txt' on another server,
+ * those will still be considered successes, but if the server redirects to
+ * some other file like '/404.html', that gets treated as a failure and the
+ * file isn't saved.
+ *
+ * If you're requesting index pages (i.e. the request path is set to '/'), this
+ * setting will be disregarded.
+ */
+$mf->setStrictFilenameMatching(true);
+
+/*
+ * Whether to verify that the server's TLS certificate is valid and matches
+ * the requested hostname. This defaults to true, but leaving it that way will
+ * generate a lot of errors because there are tons of poorly configured servers
+ * in the wild, so it's been set to false here.
+ */
+$mf->setVerifySsl(false);
+
+/*
+ * Connections are initially attempted over HTTPS on port 443. Set whether to
+ * try falling back to plain HTTP on port 80 if the initial HTTPS connection
+ * fails.
+ */
+$mf->setFallbackToHttp(true);
+
+/*
+ * Set the grace period. If the output file associated with a request already
+ * exists, and was created less than this many seconds ago, the request will
+ * be skipped. This saves resources on both ends.
+ */
+$mf->setGracePeriod(86400);
+
+/* Set the User-agent header to send with each request. */
+$mf->setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        . 'AppleWebKit/537.36 (KHTML, like Gecko) '
+        . 'Chrome/61.0.3163.100 Safari/537.36'
+);
+
+/* Timeout values for remote connections */
+$mf->setConnectTimeout(15);
+$mf->setTransferTimeout(30);
+
+/* End configuration */

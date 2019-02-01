@@ -1,0 +1,6 @@
+.svn
+composer.lock
+config.php
+data
+output.log
+vendor
