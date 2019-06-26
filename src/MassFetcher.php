@@ -30,29 +30,17 @@ class MassFetcher
 {
 
     private $connectTimeout = 10;
-
     private $fallbackToHttp = false;
-
     private $followRedirects = true;
-
     private $gracePeriod = 86400;
-
     private $inputFile = null;
-
     private $maxThreads = 48;
-
     private $outputDirectory = 'data';
-
     private $requestPath = '/';
-
     private $strictFilenameMatching = true;
-
     private $transferTimeout = 30;
-
     private $userAgent = '';
-
     private $verifySsl = true;
-
     private $workers = [];
 
     /**
@@ -72,7 +60,7 @@ class MassFetcher
         }
 
         /* Check that the pthreads dependency is satisfied */
-        if (!phpversion('pthreads')) {
+        if (!extension_loaded('pthreads')) {
             Logger::error('This application requires a version of PHP with '
                     . 'pthreads support. You may be able to enable it without '
                     . 'recompiling; see https://php.net/pthreads/', true);
@@ -80,7 +68,7 @@ class MassFetcher
         }
 
         /* Check that the cURL dependency is satisfied */
-        if (!function_exists('curl_init')) {
+        if (!extension_loaded('curl')) {
             Logger::error("This application requires PHP's cURL extension. "
                     . 'See https://php.net/curl/', true);
             exit;
